@@ -11,9 +11,9 @@ namespace ConsoleBcl.Models.Configuration.Elements
         public string FileFilter => (string)base["fileFilter"];
 
         [ConfigurationProperty("addNumber")]
-        public string AddNumber => (string)base["addNumber"];
+        public bool AddNumber => (bool)base["addNumber"];
 
         [ConfigurationProperty("addDate")]
-        public string AddDate => (string)base["addDate"];
+        public bool AddDate => (bool)base["addDate"];
     }
 }

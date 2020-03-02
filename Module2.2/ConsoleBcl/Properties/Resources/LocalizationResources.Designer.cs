@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ConsoleBcl.Properties {
+namespace ConsoleBcl.Properties.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ConsoleBcl.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources_RU {
+    internal class LocalizationResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources_RU() {
+        internal LocalizationResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ConsoleBcl.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ConsoleBcl.Properties.Resources-RU", typeof(Resources_RU).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ConsoleBcl.Properties.Resources.LocalizationResources", typeof(LocalizationResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,16 +61,7 @@ namespace ConsoleBcl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Файл с таким именем уже существует, создайте другой файл.
-        /// </summary>
-        internal static string ExistingFile {
-            get {
-                return ResourceManager.GetString("ExistingFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Файл {0} создан.
+        ///   Looks up a localized string similar to File {0} is created.
         /// </summary>
         internal static string FileIsCreated {
             get {
@@ -79,7 +70,7 @@ namespace ConsoleBcl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Файл {0} удален.
+        ///   Looks up a localized string similar to File {0} is deleted.
         /// </summary>
         internal static string FileIsDeleted {
             get {
@@ -97,7 +88,7 @@ namespace ConsoleBcl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Правило для {0} было найдено, файл перенесен в папку &quot;TargetFolder&quot;.
+        ///   Looks up a localized string similar to The rule for {0} is found, this file is moved to &quot;TargetFolder&quot; directory.
         /// </summary>
         internal static string FoundRule {
             get {
@@ -106,7 +97,9 @@ namespace ConsoleBcl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Info ru.
+        ///   Looks up a localized string similar to The program for transferring files.
+        ///Files will be transferred according to the following rules::
+        ///{0}.
         /// </summary>
         internal static string Info {
             get {
@@ -115,7 +108,7 @@ namespace ConsoleBcl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Правило для {0} не было найдено, файл перенесен в папку &quot;DefaultFolder&quot;.
+        ///   Looks up a localized string similar to The rule for {0} isn&apos;t found, this file is moved to &quot;DefaultFolder&quot; directory.
         /// </summary>
         internal static string NotFoundRule {
             get {
@@ -124,7 +117,34 @@ namespace ConsoleBcl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Нажмите &apos;q&apos; чтобы выйти из программы.
+        ///   Looks up a localized string similar to For files &apos;{0}&apos; on folder &apos;{1}&apos;: .
+        /// </summary>
+        internal static string RuleDescription {
+            get {
+                return ResourceManager.GetString("RuleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to must added date.
+        /// </summary>
+        internal static string RuleNeedAddDate {
+            get {
+                return ResourceManager.GetString("RuleNeedAddDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to must added serial number.
+        /// </summary>
+        internal static string RuleNeedAddSerialNumber {
+            get {
+                return ResourceManager.GetString("RuleNeedAddSerialNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press &apos;q&apos; to quit the Program.
         /// </summary>
         internal static string ToExit {
             get {

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ExistingFile" xml:space="preserve">
-    <value>Файл с таким именем уже существует, создайте другой файл</value>
-  </data>
   <data name="FileIsCreated" xml:space="preserve">
     <value>Файл {0} создан</value>
   </data>
@@ -133,10 +130,21 @@
     <value>Правило для {0} было найдено, файл перенесен в папку "TargetFolder"</value>
   </data>
   <data name="Info" xml:space="preserve">
-    <value>Info ru</value>
+    <value>Программа для переноса файлов.
+Файлы будут перенесены по следующим правилам:
+{0}</value>
   </data>
   <data name="NotFoundRule" xml:space="preserve">
     <value>Правило для {0} не было найдено, файл перенесен в папку "DefaultFolder"</value>
+  </data>
+  <data name="RuleDescription" xml:space="preserve">
+    <value>Для файла '{0}' в папке '{1}': </value>
+  </data>
+  <data name="RuleNeedAddDate" xml:space="preserve">
+    <value>нужно добавлять дату</value>
+  </data>
+  <data name="RuleNeedAddSerialNumber" xml:space="preserve">
+    <value>нужно добавлять порядковый номер</value>
   </data>
   <data name="ToExit" xml:space="preserve">
     <value>Нажмите 'q' чтобы выйти из программы</value>

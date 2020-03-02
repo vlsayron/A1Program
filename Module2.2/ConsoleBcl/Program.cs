@@ -1,54 +1,54 @@
 ﻿using System;
 using System.Configuration;
+using System.Threading;
 using ConsoleBcl.Models;
 using ConsoleBcl.Models.Configuration;
-using ConsoleBcl.Models.Localization;
+using ConsoleBcl.Models.Configuration.Elements;
+using localization = ConsoleBcl.Properties.Resources.LocalizationResources;
 
 namespace ConsoleBcl
 {
     class Program
     {
-        private static LocalizationSettingsBase _localization;
-        private static CustomConfigurationSection _configuration;
-
+        
         static void Main()
         {
-            _configuration = (CustomConfigurationSection)ConfigurationManager.GetSection("customSection");
-            var cultureInfo = _configuration.Localization.Localization;
-            _localization = LocalizationProvider.GetLocalization(cultureInfo);
+            var configuration = (CustomConfigurationSection)ConfigurationManager.GetSection("customSection");
+            var cultureInfo = configuration.Localization.Localization;
+           
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
 
-            var watcher = new FileWatcher(_configuration.RulesForFolders, _configuration.TargetFolder,
-                _configuration.DefaultFolder);
+            var watcher = new FileWatcher(configuration.RulesForFolders, configuration.TargetFolder,
+                configuration.DefaultFolder);
 
             watcher.FileCreated += delegate(string fileName)
             {
-                Log(string.Format(_localization.FileIsCreated(), fileName));
+                Log(string.Format(localization.FileIsCreated, fileName));
             };
             watcher.FileDeleted += delegate(string fileName)
             {
-                Log(string.Format(_localization.FileIsDeleted(), fileName));
+                Log(string.Format(localization.FileIsDeleted, fileName));
             };
             watcher.FileRenamed += delegate (string oldName, string newName)
             {
-                Log(string.Format(_localization.FileIsRenamed(), oldName, newName));
+                Log(string.Format(localization.FileIsRenamed, oldName, newName));
             };
             watcher.FileRuleFound += delegate(string fileName)
             {
-                Log(string.Format(_localization.FoundRule(), fileName)); 
+                Log(string.Format(localization.FoundRule, fileName)); 
 
             };
             watcher.FileRuleNotFound += delegate(string fileName)
             {
-                Log(string.Format(_localization.NotFoundRule(), fileName));
+                Log(string.Format(localization.NotFoundRule, fileName));
             };
 
             do
             {
                 Console.Clear();
-                Console.WriteLine(_localization.Info());
-                Console.WriteLine();
-                Console.Write(_localization.ToExit());
-                Console.WriteLine();
+                Console.WriteLine(localization.Info, GetProgramGoals(configuration.RulesForFolders));
+                Console.Write(localization.ToExit);
             } while (Console.ReadKey().KeyChar != 'q');
         }
 
@@ -56,9 +56,38 @@ namespace ConsoleBcl
         private static void Log(string message)
         {
             var date = DateTime.Now;
-            var culture = _localization.CultureInfo;
+            var culture = Thread.CurrentThread.CurrentCulture;
 
             Console.WriteLine($@"{date.ToString("dd MMMM hh:mm:ss", culture)}- {message}");
+        }
+
+        private static string GetProgramGoals(RuleElementCollection ruleCollection)
+        {
+            var result = string.Empty;
+
+            foreach (RuleElement rule in ruleCollection)
+            {
+                result += string.Format(localization.RuleDescription, rule.FileFilter, rule.Folder);
+
+                if (rule.AddNumber)
+                {
+                    result += localization.RuleNeedAddSerialNumber;
+                    if (rule.AddDate)
+                    {
+                        result += ", ";
+                    }
+                }
+
+                if (rule.AddDate)
+                {
+                    result += localization.RuleNeedAddDate;
+                }
+
+                result += "\n";
+            }
+
+
+            return result;
         }
 
     }
