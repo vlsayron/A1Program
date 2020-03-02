@@ -127,16 +127,16 @@
     <value>Файл {0} удален</value>
   </data>
   <data name="FileIsRenamed" xml:space="preserve">
-    <value>File {0} renamed to {1}</value>
+    <value>Файл {0} переименован {1}</value>
   </data>
   <data name="FoundRule" xml:space="preserve">
-    <value>Правило было найдено, файл перенесен в папку "TargetFolder"</value>
+    <value>Правило для {0} было найдено, файл перенесен в папку "TargetFolder"</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info ru</value>
   </data>
   <data name="NotFoundRule" xml:space="preserve">
-    <value>Правило не было найдено, файл перенесен в папку "DefaultFolder"</value>
+    <value>Правило для {0} не было найдено, файл перенесен в папку "DefaultFolder"</value>
   </data>
   <data name="ToExit" xml:space="preserve">
     <value>Нажмите 'q' чтобы выйти из программы</value>

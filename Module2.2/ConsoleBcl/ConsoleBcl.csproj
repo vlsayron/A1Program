@@ -49,6 +49,7 @@
     <Compile Include="Models\Configuration\Elements\LocalizationElement.cs" />
     <Compile Include="Models\Configuration\Elements\RuleElement.cs" />
     <Compile Include="Models\Configuration\Elements\RuleElementCollection.cs" />
+    <Compile Include="Models\FileWatcher.cs" />
     <Compile Include="Models\Localization\LocalizationProvider.cs" />
     <Compile Include="Models\Localization\LocalizationSettingsBase.cs" />
     <Compile Include="Models\Localization\LocalizationSettingsRussian.cs" />

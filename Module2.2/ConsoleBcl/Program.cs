@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Text.RegularExpressions;
+using ConsoleBcl.Models;
 using ConsoleBcl.Models.Configuration;
-using ConsoleBcl.Models.Configuration.Elements;
 using ConsoleBcl.Models.Localization;
 
 namespace ConsoleBcl
@@ -20,83 +17,49 @@ namespace ConsoleBcl
             var cultureInfo = _configuration.Localization.Localization;
             _localization = LocalizationProvider.GetLocalization(cultureInfo);
 
-            var listWatchers = new List<FileSystemWatcher>();
+            var watcher = new FileWatcher(_configuration.RulesForFolders, _configuration.TargetFolder,
+                _configuration.DefaultFolder);
 
-            foreach (RuleElement item in _configuration.RulesForFolders)
+            watcher.FileCreated += delegate(string fileName)
             {
-                listWatchers.Add(new FileSystemWatcher(item.Folder));
-            }
+                Log(string.Format(_localization.FileIsCreated(), fileName));
+            };
+            watcher.FileDeleted += delegate(string fileName)
+            {
+                Log(string.Format(_localization.FileIsDeleted(), fileName));
+            };
+            watcher.FileRenamed += delegate (string oldName, string newName)
+            {
+                Log(string.Format(_localization.FileIsRenamed(), oldName, newName));
+            };
+            watcher.FileRuleFound += delegate(string fileName)
+            {
+                Log(string.Format(_localization.FoundRule(), fileName)); 
 
+            };
+            watcher.FileRuleNotFound += delegate(string fileName)
+            {
+                Log(string.Format(_localization.NotFoundRule(), fileName));
+            };
 
             do
             {
-                foreach (var watcher in listWatchers)
-                {
-                    watcher.NotifyFilter = NotifyFilters.FileName;
-
-                    watcher.Filter = "*";
-
-                    watcher.Created += OnCreated;
-                    watcher.Deleted += OnDeleted;
-                    watcher.Renamed += OnRenamed;
-
-                    watcher.EnableRaisingEvents = true;
-                }
-
                 Console.Clear();
                 Console.WriteLine(_localization.Info());
                 Console.WriteLine();
-                Console.WriteLine(_localization.ToExit());
+                Console.Write(_localization.ToExit());
                 Console.WriteLine();
-
-            } while (Console.Read() != 'q');
+            } while (Console.ReadKey().KeyChar != 'q');
         }
-
-        private static void OnCreated(object source, FileSystemEventArgs e)
-        {
-            Console.WriteLine(_localization.FileIsCreated(), e.FullPath);
-        }
-        private static void OnDeleted(object source, FileSystemEventArgs e)
-        {
-            Console.WriteLine(_localization.FileIsDeleted(), e.FullPath);
-        }
-        private static void OnRenamed(object source, RenamedEventArgs e)
-        {
-            Console.WriteLine(_localization.FileIsRenamed(), e.OldFullPath, e.FullPath);
-            Process(source, e);
-        }
-
-
-        private static void Process(object source, FileSystemEventArgs e)
-        {
-            var file = e.FullPath;
-
-            var folder = Path.GetDirectoryName(e.FullPath);
-            var expressions = _configuration.RulesForFolders.GetRuleElement(folder).FileFilter;
-
-            string newFolder;
-
-            if (Regex.IsMatch(file, expressions, RegexOptions.IgnoreCase))
-            {
-
-                newFolder = _configuration.TargetFolder.FolderPath + file.Substring(file.LastIndexOf('\\') + 1);
-                Log(_localization.FoundRule());
-            }
-            else
-            {
-                newFolder = _configuration.DefaultFolder.FolderPath + file.Substring(file.LastIndexOf('\\') + 1);
-                Log(_localization.NotFoundRule());
-            }
-
-            File.Move(file, newFolder);
-
-        }
-
 
 
         private static void Log(string message)
         {
-            Console.WriteLine(message);
+            var date = DateTime.Now;
+            var culture = _localization.CultureInfo;
+
+            Console.WriteLine($@"{date.ToString("dd MMMM hh:mm:ss", culture)}- {message}");
         }
+
     }
 }

@@ -130,13 +130,13 @@
     <value>Файл {0} переименован {1}</value>
   </data>
   <data name="FoundRule" xml:space="preserve">
-    <value>The rule is found, this file is moved to "TargetFolder" directory</value>
+    <value>The rule for {0} is found, this file is moved to "TargetFolder" directory</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info en</value>
   </data>
   <data name="NotFoundRule" xml:space="preserve">
-    <value>The rule isn't found, this file is moved to "DefaultFolder" directory</value>
+    <value>The rule for {0} isn't found, this file is moved to "DefaultFolder" directory</value>
   </data>
   <data name="ToExit" xml:space="preserve">
     <value>Press 'q' to quit the Program</value>
