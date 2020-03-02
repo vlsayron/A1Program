@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace ConsoleBcl.Models.Localisation
+namespace ConsoleBcl.Models.Localization
 {
     abstract class LocalizationProvider
     {

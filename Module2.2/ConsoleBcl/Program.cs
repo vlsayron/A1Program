@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Text.RegularExpressions;
-using ConsoleBcl.Models;
 using ConsoleBcl.Models.Configuration;
-using ConsoleBcl.Models.Configuration.ForTest2;
-using ConsoleBcl.Models.Localisation;
+using ConsoleBcl.Models.Configuration.Elements;
+using ConsoleBcl.Models.Localization;
 
 namespace ConsoleBcl
 {
@@ -15,10 +14,10 @@ namespace ConsoleBcl
         private static LocalizationSettingsBase _localization;
         private static CustomConfigurationSection _configuration;
 
-        static void Main(string[] args)
+        static void Main()
         {
             _configuration = (CustomConfigurationSection)ConfigurationManager.GetSection("customSection");
-            var cultureInfo = _configuration.Localisation.Localisation;
+            var cultureInfo = _configuration.Localization.Localization;
             _localization = LocalizationProvider.GetLocalization(cultureInfo);
 
             var listWatchers = new List<FileSystemWatcher>();
@@ -55,15 +54,15 @@ namespace ConsoleBcl
 
         private static void OnCreated(object source, FileSystemEventArgs e)
         {
-            Console.WriteLine(string.Format(_localization.FileIsCreated(), e.FullPath));
+            Console.WriteLine(_localization.FileIsCreated(), e.FullPath);
         }
         private static void OnDeleted(object source, FileSystemEventArgs e)
         {
-            Console.WriteLine(string.Format(_localization.FileIsDeleted(), e.FullPath));
+            Console.WriteLine(_localization.FileIsDeleted(), e.FullPath);
         }
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
-            Console.WriteLine(string.Format(_localization.FileIsRenamed(), e.OldFullPath, e.FullPath));
+            Console.WriteLine(_localization.FileIsRenamed(), e.OldFullPath, e.FullPath);
             Process(source, e);
         }
 
@@ -75,7 +74,7 @@ namespace ConsoleBcl
             var folder = Path.GetDirectoryName(e.FullPath);
             var expressions = _configuration.RulesForFolders.GetRuleElement(folder).FileFilter;
 
-            var newFolder = string.Empty;
+            string newFolder;
 
             if (Regex.IsMatch(file, expressions, RegexOptions.IgnoreCase))
             {

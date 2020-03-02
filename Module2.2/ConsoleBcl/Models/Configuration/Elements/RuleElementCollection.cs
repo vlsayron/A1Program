@@ -1,7 +1,8 @@
 ﻿using System.Configuration;
-namespace ConsoleBcl.Models.Configuration.ForTest2
+
+namespace ConsoleBcl.Models.Configuration.Elements
 {
-    public class RuleElementCollection : ConfigurationElementCollection
+    class RuleElementCollection : ConfigurationElementCollection
     {
         protected override ConfigurationElement CreateNewElement()
         {
@@ -15,7 +16,7 @@ namespace ConsoleBcl.Models.Configuration.ForTest2
        
         public RuleElement GetRuleElement(string id)
         {
-            return (RuleElement)this.BaseGet((object)id);
+            return (RuleElement)BaseGet(id);
         }
     }
 }

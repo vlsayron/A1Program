@@ -2,12 +2,9 @@
 
 namespace ConsoleBcl.Models.Configuration.Elements
 {
-    public class FolderElement : ConfigurationElement
+    class FolderElement : ConfigurationElement
     {
         [ConfigurationProperty("value")]
-        public string FolderPath
-        {
-            get { return (string)this["value"]; }
-        }
+        public string FolderPath => (string)this["value"];
     }
 }

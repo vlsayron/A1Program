@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace ConsoleBcl.Models.Localisation
+namespace ConsoleBcl.Models.Localization
 {
     class LocalizationSettingsRussian : LocalizationSettingsBase
     {

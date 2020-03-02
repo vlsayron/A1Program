@@ -1,14 +1,14 @@
 ﻿using System.Globalization;
 using System.Resources;
 
-
-namespace ConsoleBcl.Models
+namespace ConsoleBcl.Models.Localization
 {
     abstract class LocalizationSettingsBase
     {
         private readonly ResourceManager _resourceManager;
         public  CultureInfo CultureInfo { get; }
-        public LocalizationSettingsBase(CultureInfo cultureInfo, string fileResources)
+
+        protected LocalizationSettingsBase(CultureInfo cultureInfo, string fileResources)
         {
             _resourceManager = new ResourceManager(fileResources, typeof(Program).Assembly);
             CultureInfo = cultureInfo;
