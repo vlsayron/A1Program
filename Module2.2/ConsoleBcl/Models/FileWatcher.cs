@@ -14,7 +14,7 @@ namespace ConsoleBcl.Models
     class FileWatcher
     {
         public event WatcherHandler FileCreated;
-        public event WatcherHandler FileDeleted;
+        //public event WatcherHandler FileDeleted;
         public event FileRenamedHandler FileRenamed;
         public event FileRule FileRuleFound;
         public event FileRule FileRuleNotFound;
@@ -44,7 +44,6 @@ namespace ConsoleBcl.Models
 
                 watcher.Renamed += OnRenamed;
                 watcher.Created += OnCreated;
-                watcher.Deleted += OnDeleted;
 
                 watchers.Add(watcher);
             }
@@ -62,12 +61,7 @@ namespace ConsoleBcl.Models
             ProcessFile(e.FullPath);
         }
 
-        private void OnDeleted(object source, FileSystemEventArgs e)
-        {
-            FileDeleted?.Invoke(e.Name);
-        }
        
-
         private void ProcessFile(string fileFullName)
         {
             var fileName = Path.GetFileName(fileFullName);
@@ -91,7 +85,7 @@ namespace ConsoleBcl.Models
             if (filter.AddDate)
             {
                 var currentCulture = Thread.CurrentThread.CurrentCulture;
-                newFileName = $@"{DateTime.Now.ToString("dd MMMM hh:mm:ss ", currentCulture)}-{newFileName}";
+                newFileName = $@"{DateTime.Now.ToString("dd MMMM hh.mm.ss ", currentCulture)}-{newFileName}";
             }
 
             if (filter.AddNumber)

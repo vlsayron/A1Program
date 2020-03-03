@@ -61,7 +61,7 @@ namespace ConsoleBcl.Properties.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File {0} is created.
+        ///   Looks up a localized string similar to File &apos;{0}&apos; is created.
         /// </summary>
         internal static string FileIsCreated {
             get {
@@ -70,7 +70,7 @@ namespace ConsoleBcl.Properties.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File {0} is deleted.
+        ///   Looks up a localized string similar to File &apos;{0}&apos; is deleted.
         /// </summary>
         internal static string FileIsDeleted {
             get {
@@ -79,7 +79,7 @@ namespace ConsoleBcl.Properties.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Файл {0} переименован {1}.
+        ///   Looks up a localized string similar to Файл &apos;{0}&apos; переименован &apos;{1}&apos;.
         /// </summary>
         internal static string FileIsRenamed {
             get {
@@ -88,7 +88,7 @@ namespace ConsoleBcl.Properties.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The rule for {0} is found, this file is moved to &quot;TargetFolder&quot; directory.
+        ///   Looks up a localized string similar to The rule for &apos;{0}&apos; is found, this file is moved to &apos;TargetFolder&apos; directory.
         /// </summary>
         internal static string FoundRule {
             get {
@@ -97,22 +97,31 @@ namespace ConsoleBcl.Properties.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The program for transferring files.
-        ///Files will be transferred according to the following rules::
-        ///{0}.
-        /// </summary>
-        internal static string Info {
-            get {
-                return ResourceManager.GetString("Info", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The rule for {0} isn&apos;t found, this file is moved to &quot;DefaultFolder&quot; directory.
+        ///   Looks up a localized string similar to The rule for &apos;{0}&apos; isn&apos;t found, this file is moved to &apos;DefaultFolder&apos; directory.
         /// </summary>
         internal static string NotFoundRule {
             get {
                 return ResourceManager.GetString("NotFoundRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press &apos;q&apos; or &apos;ctrl+break&apos; to close the program.
+        /// </summary>
+        internal static string ProgramExit {
+            get {
+                return ResourceManager.GetString("ProgramExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The program for transferring files.
+        ///Files will be transferred according to the following rules::
+        ///{0}.
+        /// </summary>
+        internal static string ProgramInfo {
+            get {
+                return ResourceManager.GetString("ProgramInfo", resourceCulture);
             }
         }
         
@@ -140,15 +149,6 @@ namespace ConsoleBcl.Properties.Resources {
         internal static string RuleNeedAddSerialNumber {
             get {
                 return ResourceManager.GetString("RuleNeedAddSerialNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Press &apos;q&apos; to quit the Program.
-        /// </summary>
-        internal static string ToExit {
-            get {
-                return ResourceManager.GetString("ToExit", resourceCulture);
             }
         }
     }

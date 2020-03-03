@@ -4,7 +4,7 @@ namespace ConsoleBcl.Models.Configuration.Elements
 {
     class FolderElement : ConfigurationElement
     {
-        [ConfigurationProperty("value")]
-        public string FolderPath => (string)this["value"];
+        [ConfigurationProperty("path")]
+        public string FolderPath => (string)this["path"];
     }
 }

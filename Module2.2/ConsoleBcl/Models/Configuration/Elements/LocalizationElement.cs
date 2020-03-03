@@ -5,7 +5,7 @@ namespace ConsoleBcl.Models.Configuration.Elements
 { 
     class LocalizationElement : ConfigurationElement
     {
-        [ConfigurationProperty("value")]
-        public CultureInfo Localization => (CultureInfo)this["value"];
+        [ConfigurationProperty("culture")]
+        public CultureInfo Localization => (CultureInfo)this["culture"];
     }
 }
