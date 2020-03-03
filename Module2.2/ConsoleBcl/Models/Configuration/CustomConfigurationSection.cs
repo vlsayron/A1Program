@@ -10,6 +10,8 @@ namespace ConsoleBcl.Models.Configuration
 
         [ConfigurationProperty("localization")]
         public LocalizationElement Localization => (LocalizationElement)this["localization"];
+        [ConfigurationProperty("processExistingFiles")]
+        public ProcessExistingFilesElement ProcessExistingFiles => (ProcessExistingFilesElement)this["processExistingFiles"];
 
         [ConfigurationProperty("targetFolder")]
         public FolderElement TargetFolder => (FolderElement)this["targetFolder"];

@@ -22,7 +22,6 @@ namespace ConsoleBcl
             CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
-           
             var watcher = new FileWatcher(configuration.RulesForFolders, configuration.TargetFolder,
                 configuration.DefaultFolder);
 
@@ -30,14 +29,25 @@ namespace ConsoleBcl
             watcher.FileRenamed += (oldName, newName) => Log(string.Format(localization.FileIsRenamed, oldName, newName));
             watcher.FileRuleFound += fileName => Log(string.Format(localization.FoundRule, fileName));
             watcher.FileRuleNotFound += fileName => Log(string.Format(localization.NotFoundRule, fileName));
-            
+
+            Console.WriteLine(localization.ProgramInfo, GetProgramGoals(configuration.RulesForFolders));
+            Console.Write(localization.ProgramExit);
+            Console.WriteLine();
+            Console.WriteLine();
+
+            if (configuration.ProcessExistingFiles.Process)
+            {
+                watcher.ProcessExistingFiles();
+            }
+
             do
             {
-                Console.Clear();
-                Console.WriteLine(localization.ProgramInfo, GetProgramGoals(configuration.RulesForFolders));
-                Console.Write(localization.ProgramExit);
-                Console.WriteLine();
-            } while (Console.ReadKey().KeyChar != 'q');
+                if (Console.ReadKey().KeyChar == 'q')
+                {
+                    break;
+                }
+            } while (true);
+
         }
 
         private static void Log(string message)

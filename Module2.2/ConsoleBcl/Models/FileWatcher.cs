@@ -14,7 +14,6 @@ namespace ConsoleBcl.Models
     class FileWatcher
     {
         public event WatcherHandler FileCreated;
-        //public event WatcherHandler FileDeleted;
         public event FileRenamedHandler FileRenamed;
         public event FileRule FileRuleFound;
         public event FileRule FileRuleNotFound;
@@ -23,6 +22,7 @@ namespace ConsoleBcl.Models
         private readonly RuleElementCollection _ruleCollection;
         private readonly FolderElement _targetFolder;
         private readonly FolderElement _defaultFolder;
+
 
         public FileWatcher(RuleElementCollection ruleCollection, FolderElement targetFolder, FolderElement defaultFolder)
         {
@@ -49,6 +49,21 @@ namespace ConsoleBcl.Models
             }
         }
 
+        public void ProcessExistingFiles()
+        {
+            foreach (RuleElement rule in _ruleCollection)
+            {
+                var entities = Directory.GetFileSystemEntries(rule.Folder);
+                foreach (var entity in entities)
+                {
+                    if (File.Exists(entity))
+                    {
+                        ProcessFile(entity);
+                    }
+                }
+            }
+        }
+
         private void OnRenamed(object source, RenamedEventArgs e)
         {
             FileRenamed?.Invoke(e.OldName, e.Name);
@@ -61,7 +76,6 @@ namespace ConsoleBcl.Models
             ProcessFile(e.FullPath);
         }
 
-       
         private void ProcessFile(string fileFullName)
         {
             var fileName = Path.GetFileName(fileFullName);
@@ -106,10 +120,5 @@ namespace ConsoleBcl.Models
             File.Move(fileFullName, fullNewFileName);
         }
 
-      
-
-       
-
-       
     }
 }
