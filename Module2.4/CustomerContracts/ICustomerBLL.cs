@@ -1,7 +1,7 @@
-﻿namespace CustomerContracts
-{
-    public interface ICustomerBLL
-    {
-        string GetLogMessage();
-    }
-}
+﻿//namespace CustomerContracts
+//{
+//    public interface ICustomerBLL
+//    {
+//        string GetLogMessage();
+//    }
+//}

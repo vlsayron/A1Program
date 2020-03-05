@@ -1,8 +1,8 @@
-﻿namespace CustomerContracts
-{
-    public interface ICustomerDAL
-    {
-        string GetCustomerName();
-    }
-}
+﻿//namespace CustomerContracts
+//{
+//    public interface ICustomerDAL
+//    {
+//        string GetCustomerName();
+//    }
+//}
 

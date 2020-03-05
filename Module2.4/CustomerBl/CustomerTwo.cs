@@ -1,12 +1,12 @@
-﻿using CustomerContracts;
+﻿//using CustomerContracts;
 
-namespace CustomerBl
-{
-    public class CustomerTwo : ICustomerDAL
-    {
-        public string GetCustomerName()
-        {
-            return "CustomerTwo";
-        }
-    }
-}
+//namespace CustomerBl
+//{
+//    public class CustomerTwo : ICustomerDAL
+//    {
+//        public string GetCustomerName()
+//        {
+//            return "CustomerTwo";
+//        }
+//    }
+//}
