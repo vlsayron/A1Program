@@ -50,8 +50,6 @@ namespace ConsoleApp
             Console.ReadKey();
 
         }
-
-
     }
 
 }
