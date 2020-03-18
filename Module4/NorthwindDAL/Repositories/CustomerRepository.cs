@@ -1,51 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using DALContracts.Models;
 using DALContracts.Repositories;
 
 namespace NorthwindDAL.Repositories
 {
-    public class CategoryRepository : ExecuteCommandBase, IRepository<Category>
+    internal class CustomerRepository : ExecuteCommandBase, IRepository<Customer>
     {
-        private readonly string _connectionString;
-        public CategoryRepository(string connectionString) : base(connectionString)
+        public CustomerRepository(string connectionString) : base(connectionString)
         {
-            _connectionString = connectionString;
         }
 
-        public bool Delete(int id)
+        public Customer SelectById<T2>(T2 id)
+        {
+            var sqlSelectById =
+                @"SELECT [CustomerID], [CompanyName], [ContactName], [ContactTitle], [Address], [City], [Region], [PostalCode], [Country], [Phone], [Fax] FROM .[dbo].[Customers] WHERE [CustomerID] = @IdEntity";
+
+            return SelectById(sqlSelectById, id, GetEntities);
+        }
+        public IEnumerable<Customer> SelectAll()
+        {
+            var sqlSelectAll =
+                @"SELECT [CustomerID], [CompanyName], [ContactName], [ContactTitle], [Address], [City], [Region], [PostalCode], [Country], [Phone], [Fax] FROM .[dbo].[Customers]";
+
+            return SelectAll(sqlSelectAll, GetEntities);
+        }
+
+        public IEnumerable<Customer> Find(Func<Customer, bool> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public List<Category> Find(Func<Category, bool> predicate)
+        private static IEnumerable<Customer> GetEntities(SqlDataReader reader)
         {
-            throw new NotImplementedException();
-        }
+            var listResults = new List<Customer>();
 
-        public int GetCountDependencies(int id)
-        {
-            throw new NotImplementedException();
-        }
+            while (reader.Read())
+            {
+                var entity = new Customer
+                {
+                    CustomerId = reader.SafeGetString(0),
+                    CompanyName = reader.SafeGetString(1),
+                    ContactName = reader.SafeGetString(2),
+                    ContactTitle = reader.SafeGetString(3),
+                    Address = reader.SafeGetString(4),
+                    City = reader.SafeGetString(5),
+                    Region = reader.SafeGetString(6),
+                    PostalCode = reader.SafeGetString(7),
+                    Country = reader.SafeGetString(8),
+                    Phone = reader.SafeGetString(9),
+                    Fax = reader.SafeGetString(10),
 
-        public int? Insert(Category item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Category> SelectAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Category SelectById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(Category item)
-        {
-            throw new NotImplementedException();
+                };
+                listResults.Add(entity);
+            }
+            return listResults;
         }
     }
 }

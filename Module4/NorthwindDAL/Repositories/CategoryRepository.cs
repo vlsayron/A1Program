@@ -1,51 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using DALContracts.Models;
 using DALContracts.Repositories;
 
 namespace NorthwindDAL.Repositories
 {
-    public class CustomerRepository : ExecuteCommandBase, IRepository<Customer>
+    internal class CategoryRepository : ExecuteCommandBase, IRepository<Category>
     {
-        private readonly string _connectionString;
-        public CustomerRepository(string connectionString) : base(connectionString)
+        public CategoryRepository(string connectionString) : base(connectionString)
         {
-            _connectionString = connectionString;
         }
 
-        public bool Delete(int id)
+        public Category SelectById<T2>(T2 id)
+        {
+            var sqlSelectById =
+                @"SELECT [CategoryID],[CategoryName],[Description],[Picture] FROM [dbo].[Categories] WHERE [CategoryID] = @IdEntity";
+
+            return SelectById(sqlSelectById, id, GetEntities);
+        }
+
+        public IEnumerable<Category> SelectAll()
+        {
+            var sqlSelectAll =
+                @"SELECT [CategoryID],[CategoryName],[Description],[Picture] FROM [dbo].[Categories]";
+
+            return SelectAll(sqlSelectAll, GetEntities);
+        }
+
+        public IEnumerable<Category> Find(Func<Category, bool> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public List<Customer> Find(Func<Customer, bool> predicate)
+        private static IEnumerable<Category> GetEntities(SqlDataReader reader)
         {
-            throw new NotImplementedException();
-        }
+            var listResults = new List<Category>();
 
-        public int GetCountDependencies(int id)
-        {
-            throw new NotImplementedException();
-        }
+            while (reader.Read())
+            {
+                var entity = new Category
+                {
+                    CategoryId = reader.GetInt32(0),
+                    CategoryName = reader.SafeGetString(1),
+                    Description = reader.SafeGetString(2)
+                };
 
-        public int? Insert(Customer item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Customer> SelectAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Customer SelectById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(Customer item)
-        {
-            throw new NotImplementedException();
+                listResults.Add(entity);
+            }
+            return listResults;
         }
     }
 }

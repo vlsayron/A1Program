@@ -33,6 +33,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.4.7.0\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,22 +48,23 @@
     <Compile Include="DbContext.cs" />
     <Compile Include="ExecuteCommandBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CategoryRepository - Copy.cs" />
-    <Compile Include="Repositories\CustomerDemographicRepository.cs" />
+    <Compile Include="Repositories\OrderDetailRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
-    <Compile Include="Repositories\RegionRepository.cs" />
     <Compile Include="Repositories\SupplierRepository.cs" />
-    <Compile Include="Repositories\TerritoryRepository.cs" />
-    <Compile Include="Repositories\ShipperRepository.cs" />
-    <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="SafeReadData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DALContracts\DALContracts.csproj">
       <Project>{9d91ee33-aba0-4cea-8232-67a106dae3c5}</Project>
       <Name>DALContracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

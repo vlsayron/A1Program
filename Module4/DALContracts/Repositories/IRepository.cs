@@ -3,14 +3,11 @@ using System.Collections.Generic;
 
 namespace DALContracts.Repositories
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<out T> where T : class
     {
-        List<T> SelectAll();
-        T SelectById(int id);
-        List<T> Find(Func<T, bool> predicate);
-        int? Insert(T item);
-        bool Update(T item);
-        bool Delete(int id);
-        int GetCountDependencies(int id);
+        IEnumerable<T> SelectAll();
+        T SelectById<T2>(T2 id);
+        IEnumerable<T> Find(Func<T, bool> predicate);
+
     }
 }
