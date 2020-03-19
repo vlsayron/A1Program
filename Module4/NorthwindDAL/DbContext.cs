@@ -35,7 +35,7 @@ namespace NorthwindDAL
             _customerRepository = new CustomerRepository(stringConnection);
             _employeeRepository = new EmployeeRepository(stringConnection);
 
-            var orderDetails = new OrderDetailRepository(_productRepository);
+            var orderDetails = new OrderDetailRepository(stringConnection, _productRepository);
 
             _orderRepository =
                 new OrderRepository(stringConnection, _employeeRepository, _customerRepository, orderDetails);

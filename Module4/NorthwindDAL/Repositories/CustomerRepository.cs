@@ -1,38 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using DALContracts.Models;
-using DALContracts.Repositories;
 
 namespace NorthwindDAL.Repositories
 {
-    internal class CustomerRepository : ExecuteCommandBase, IRepository<Customer>
+    internal class CustomerRepository : BaseRepository<Customer>
     {
-        public CustomerRepository(string connectionString) : base(connectionString)
+        private const string SqlSelectById =
+            @"SELECT [CustomerID], [CompanyName], [ContactName], [ContactTitle], [Address], [City], [Region], [PostalCode], [Country], [Phone], [Fax] FROM .[dbo].[Customers] WHERE [CustomerID] = @IdEntity";
+
+        private const string SqlSelectAll =
+            @"SELECT [CustomerID], [CompanyName], [ContactName], [ContactTitle], [Address], [City], [Region], [PostalCode], [Country], [Phone], [Fax] FROM.[dbo].[Customers]";
+
+        public CustomerRepository(string connectionString) : base(connectionString, SqlSelectAll, SqlSelectById)
         {
         }
 
-        public Customer SelectById<T2>(T2 id)
-        {
-            var sqlSelectById =
-                @"SELECT [CustomerID], [CompanyName], [ContactName], [ContactTitle], [Address], [City], [Region], [PostalCode], [Country], [Phone], [Fax] FROM .[dbo].[Customers] WHERE [CustomerID] = @IdEntity";
 
-            return SelectById(sqlSelectById, id, GetEntities);
-        }
-        public IEnumerable<Customer> SelectAll()
-        {
-            var sqlSelectAll =
-                @"SELECT [CustomerID], [CompanyName], [ContactName], [ContactTitle], [Address], [City], [Region], [PostalCode], [Country], [Phone], [Fax] FROM .[dbo].[Customers]";
-
-            return SelectAll(sqlSelectAll, GetEntities);
-        }
-
-        public IEnumerable<Customer> Find(Func<Customer, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static IEnumerable<Customer> GetEntities(SqlDataReader reader)
+        protected override IEnumerable<Customer> MapEntities(SqlDataReader reader)
         {
             var listResults = new List<Customer>();
 

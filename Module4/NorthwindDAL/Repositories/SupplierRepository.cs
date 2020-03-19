@@ -1,39 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using DALContracts.Models;
-using DALContracts.Repositories;
 
 namespace NorthwindDAL.Repositories
 {
-    public class SupplierRepository : ExecuteCommandBase, IRepository<Supplier>
+    public class SupplierRepository : BaseRepository<Supplier>
     {
-        public SupplierRepository(string connectionString) : base(connectionString)
+        private const string SqlSelectById =
+            @"SELECT [SupplierID], [CompanyName], [ContactName], [ContactTitle], [Address], [City] ,[Region], [PostalCode], [Country], [Phone], [Fax], [HomePage] FROM [dbo].[Suppliers] WHERE SupplierID = @IdEntity;";
+        private const string SqlSelectAll =
+            @"SELECT [SupplierID], [CompanyName], [ContactName], [ContactTitle], [Address], [City] ,[Region], [PostalCode], [Country], [Phone], [Fax], [HomePage] FROM [dbo].[Suppliers];";
+
+        public SupplierRepository(string connectionString) : base(connectionString, SqlSelectAll, SqlSelectById)
         {
         }
 
-        public Supplier SelectById<T2>(T2 id)
-        {
-            var sqlSelectById =
-                @"SELECT [SupplierID], [CompanyName], [ContactName], [ContactTitle], [Address], [City] ,[Region], [PostalCode], [Country], [Phone], [Fax], [HomePage] FROM [dbo].[Suppliers] WHERE SupplierID = @IdEntity;";
-
-            return SelectById(sqlSelectById, id, GetEntities);
-        }
-
-        public IEnumerable<Supplier> SelectAll()
-        {
-            var sqlSelectAll =
-                @"SELECT [SupplierID], [CompanyName], [ContactName], [ContactTitle], [Address], [City] ,[Region], [PostalCode], [Country], [Phone], [Fax], [HomePage] FROM [dbo].[Suppliers];";
-
-            return SelectAll(sqlSelectAll, GetEntities);
-        }
-
-        public IEnumerable<Supplier> Find(Func<Supplier, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static IEnumerable<Supplier> GetEntities(SqlDataReader reader)
+        protected override IEnumerable<Supplier> MapEntities(SqlDataReader reader)
         {
             var listResults = new List<Supplier>();
 
@@ -59,7 +41,5 @@ namespace NorthwindDAL.Repositories
             }
             return listResults;
         }
-
-        
     }
 }

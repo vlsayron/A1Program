@@ -8,6 +8,5 @@ namespace DALContracts.Repositories
         IEnumerable<T> SelectAll();
         T SelectById<T2>(T2 id);
         IEnumerable<T> Find(Func<T, bool> predicate);
-
     }
 }

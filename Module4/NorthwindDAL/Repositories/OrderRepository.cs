@@ -1,62 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 using DALContracts.Models;
 using DALContracts.Repositories;
 
 namespace NorthwindDAL.Repositories
 {
-    internal class OrderRepository : ExecuteCommandBase, IOrderRepository
+    internal class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
-        private readonly string _connectionString;
+        
         private readonly EmployeeRepository _employeeRepository;
         private readonly CustomerRepository _customerRepository;
         private readonly OrderDetailRepository _orderDetailRepository;
 
-        public OrderRepository(string connectionString, 
-            EmployeeRepository employeeRepository,
-            CustomerRepository customerRepository, 
-            OrderDetailRepository orderDetailRepository) : base(connectionString)
+        private const string SqlSelectById =
+            @"SELECT [OrderID], [CustomerID], [EmployeeID], [OrderDate], [RequiredDate], [ShippedDate], [Freight], [ShipName], [ShipAddress], [ShipCity], [ShipRegion], [ShipPostalCode], [ShipCountry] FROM [dbo].[Orders] WHERE [OrderID] = @IdEntity;";
+        private const string SqlSelectAll =
+            @"SELECT [OrderID], [CustomerID], [EmployeeID], [OrderDate], [RequiredDate], [ShippedDate], [Freight], [ShipName], [ShipAddress], [ShipCity], [ShipRegion], [ShipPostalCode], [ShipCountry] FROM [dbo].[Orders];";
+
+        public OrderRepository(string connectionString, EmployeeRepository employeeRepository, CustomerRepository customerRepository, OrderDetailRepository orderDetailRepository) : base(connectionString, SqlSelectAll, SqlSelectById)
         {
-            _connectionString = connectionString;
             _employeeRepository = employeeRepository;
             _customerRepository = customerRepository;
             _orderDetailRepository = orderDetailRepository;
         }
-        public Order SelectById(int id)
-        {
-            var sqlSelectById =
-                @"SELECT [OrderID], [CustomerID], [EmployeeID], [OrderDate], [RequiredDate], [ShippedDate], [Freight], [ShipName], [ShipAddress], [ShipCity], [ShipRegion], [ShipPostalCode], [ShipCountry] FROM [dbo].[Orders] WHERE [OrderID] = @IdEntity";
+        
 
-            var order = SelectById(sqlSelectById, id, GetEntities);
-
-
-
-            return order;
-        }
-
-        public IEnumerable<Order> SelectAll()
-        {
-            var sqlSelectAll =
-                @"SELECT [OrderID], [CustomerID], [EmployeeID], [OrderDate], [RequiredDate], [ShippedDate], [Freight], [ShipName], [ShipAddress], [ShipCity], [ShipRegion], [ShipPostalCode], [ShipCountry] FROM [dbo].[Orders]";
-
-            var orders = SelectAll(sqlSelectAll, GetEntities).ToList();
-
-            foreach (var order in orders)
-            {
-                order.OrderDetails = _orderDetailRepository.GetOrderDetails(order.OrderId);
-            }
-
-            return orders;
-
-        }
-        public IEnumerable<Order> Find(Func<Order, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        private IEnumerable<Order> GetEntities(SqlDataReader reader)
+        protected override IEnumerable<Order> MapEntities(SqlDataReader reader)
         {
             var listResults = new List<Order>();
 
@@ -67,7 +36,7 @@ namespace NorthwindDAL.Repositories
                     OrderId = reader.GetInt32(0),
                     Customer = _customerRepository.SelectById(reader.SafeGetString(1)),
                     Employee = _employeeRepository.SelectById(reader.SafeGetInt(2)),
-                    OrderDate = reader.GetDateTime(3),
+                    OrderDate = reader.SafeGetDateTime(3),
                     RequiredDate = reader.GetDateTime(4),
                     ShippedDate = reader.SafeGetDateTime(5),
                     Freight = reader.GetDecimal(6),
@@ -78,12 +47,27 @@ namespace NorthwindDAL.Repositories
                     ShipPostalCode = reader.SafeGetString(11),
                     ShipCountry = reader.SafeGetString(12)
                 };
+                entity.OrderDetails = _orderDetailRepository.GetOrderDetails(entity.OrderId);
+
+               
+                if (!entity.OrderDate.HasValue)
+                {
+                    entity.OrderStatus = OrderStatusEnum.New;
+                }
+                else if(!entity.ShippedDate.HasValue)
+                {
+                    entity.OrderStatus = OrderStatusEnum.InProgress;
+                }
+                else
+                {
+                    entity.OrderStatus = OrderStatusEnum.Done;
+                }
 
                 listResults.Add(entity);
             }
             return listResults;
         }
 
-
+       
     }
 }

@@ -1,40 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using DALContracts.Models;
-using DALContracts.Repositories;
 
 namespace NorthwindDAL.Repositories
 {
-    internal class EmployeeRepository : ExecuteCommandBase, IRepository<Employee>
+    internal class EmployeeRepository : BaseRepository<Employee>
     {
-        public EmployeeRepository(string connectionString) : base(connectionString)
+        private const string SqlSelectById =
+            @"SELECT [EmployeeID] ,[LastName] ,[FirstName] ,[Title] ,[TitleOfCourtesy] ,[BirthDate] ,[HireDate] ,[Address] ,[City] ,[Region] ,[PostalCode] ,[Country] ,[HomePhone] ,[Extension] ,[Notes], [PhotoPath] FROM [dbo].[Employees] WHERE [EmployeeID] = @IdEntity";
+        private const string SqlSelectAll =
+            @"SELECT [EmployeeID] ,[LastName] ,[FirstName] ,[Title] ,[TitleOfCourtesy] ,[BirthDate] ,[HireDate] ,[Address] ,[City] ,[Region] ,[PostalCode] ,[Country] ,[HomePhone] ,[Extension] ,[Notes], [PhotoPath] FROM [dbo].[Employees]";
+
+        public EmployeeRepository(string connectionString) : base(connectionString, SqlSelectAll, SqlSelectById)
         {
         }
 
-        public Employee SelectById<T2>(T2 id)
-        {
-            var sqlSelectById =
-                @"SELECT [EmployeeID] ,[LastName] ,[FirstName] ,[Title] ,[TitleOfCourtesy] ,[BirthDate] ,[HireDate] ,[Address] ,[City] ,[Region] ,[PostalCode] ,[Country] ,[HomePhone] ,[Extension] ,[Notes], [PhotoPath] FROM [dbo].[Employees] WHERE [EmployeeID] = @IdEntity";
-
-            return SelectById(sqlSelectById, id, GetEntities);
-        }
-
-        public IEnumerable<Employee> SelectAll()
-        {
-            var sqlSelectAll =
-                @"SELECT [EmployeeID] ,[LastName] ,[FirstName] ,[Title] ,[TitleOfCourtesy] ,[BirthDate] ,[HireDate] ,[Address] ,[City] ,[Region] ,[PostalCode] ,[Country] ,[HomePhone] ,[Extension] ,[Notes], [PhotoPath] FROM [dbo].[Employees]";
-
-            return SelectAll(sqlSelectAll, GetEntities);
-        }
-
-        public IEnumerable<Employee> Find(Func<Employee, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        private static IEnumerable<Employee> GetEntities(SqlDataReader reader)
+        protected override IEnumerable<Employee> MapEntities(SqlDataReader reader)
         {
             var listResults = new List<Employee>();
 

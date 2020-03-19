@@ -1,39 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using DALContracts.Models;
-using DALContracts.Repositories;
 
 namespace NorthwindDAL.Repositories
 {
-    internal class CategoryRepository : ExecuteCommandBase, IRepository<Category>
+    internal class CategoryRepository : BaseRepository<Category>
     {
-        public CategoryRepository(string connectionString) : base(connectionString)
+        private const string SqlSelectById =
+            @"SELECT [CategoryID],[CategoryName],[Description],[Picture] FROM [dbo].[Categories] WHERE [CategoryID] = @IdEntity";
+        private const string SqlSelectAll =
+            @"SELECT [CategoryID],[CategoryName],[Description],[Picture] FROM [dbo].[Categories]";
+
+        public CategoryRepository(string connectionString) : base(connectionString, SqlSelectAll, SqlSelectById)
         {
         }
 
-        public Category SelectById<T2>(T2 id)
-        {
-            var sqlSelectById =
-                @"SELECT [CategoryID],[CategoryName],[Description],[Picture] FROM [dbo].[Categories] WHERE [CategoryID] = @IdEntity";
-
-            return SelectById(sqlSelectById, id, GetEntities);
-        }
-
-        public IEnumerable<Category> SelectAll()
-        {
-            var sqlSelectAll =
-                @"SELECT [CategoryID],[CategoryName],[Description],[Picture] FROM [dbo].[Categories]";
-
-            return SelectAll(sqlSelectAll, GetEntities);
-        }
-
-        public IEnumerable<Category> Find(Func<Category, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static IEnumerable<Category> GetEntities(SqlDataReader reader)
+        protected override IEnumerable<Category> MapEntities(SqlDataReader reader)
         {
             var listResults = new List<Category>();
 

@@ -15,7 +15,13 @@ namespace NorthwindDAL
         }
         public static DateTime? SafeGetDateTime(this SqlDataReader reader, int colIndex)
         {
-            return !reader.IsDBNull(colIndex) ? reader.GetDateTime(colIndex) : default;
+            if (!reader.IsDBNull(colIndex))
+            {
+                return reader.GetDateTime(colIndex);
+            }
+
+            return null;
+            
         }
     }
 }

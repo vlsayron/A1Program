@@ -21,7 +21,5 @@ namespace DALContracts.Models
         public byte[] Photo { get; set; }
         public string Notes { get; set; }
         public string PhotoPath { get; set; }
-
-
     }
 }

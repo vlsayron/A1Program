@@ -1,44 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using DALContracts.Models;
 using DALContracts.Repositories;
 
 namespace NorthwindDAL.Repositories
 {
-    internal class ProductRepository : ExecuteCommandBase, IRepository<Product>
+    internal class ProductRepository : BaseRepository<Product>, IRepository<Product>
     {
         private readonly CategoryRepository _categoryRepository;
         private readonly SupplierRepository _supplierRepository;
-        
-        public ProductRepository(string connectionString, CategoryRepository categoryRepository, SupplierRepository supplierRepository) : base(connectionString)
+
+        private const string SqlSelectById =
+            @"SELECT [ProductID], [ProductName], [SupplierID], [CategoryID], [QuantityPerUnit], [UnitPrice], [UnitsInStock], [UnitsOnOrder], [ReorderLevel], [Discontinued] FROM [Northwind].[dbo].[Products] WHERE [ProductID] = @IdEntity;";
+        private const string SqlSelectAll =
+            @"SELECT [ProductID], [ProductName], [SupplierID], [CategoryID], [QuantityPerUnit], [UnitPrice], [UnitsInStock], [UnitsOnOrder], [ReorderLevel], [Discontinued] FROM [Northwind].[dbo].[Products];";
+
+        public ProductRepository(string connectionString, CategoryRepository categoryRepository, SupplierRepository supplierRepository) : base(connectionString, SqlSelectAll, SqlSelectById)
         {
             _categoryRepository = categoryRepository;
             _supplierRepository = supplierRepository;
         }
 
-        public Product SelectById<T2>(T2 id)
-        {
-            var sqlSelectById =
-                @"SELECT [ProductID], [ProductName], [SupplierID], [CategoryID], [QuantityPerUnit], [UnitPrice], [UnitsInStock], [UnitsOnOrder], [ReorderLevel], [Discontinued] FROM [Northwind].[dbo].[Products] WHERE [ProductID] = @IdEntity";
-
-            return SelectById(sqlSelectById, id, GetEntities);
-        }
-
-        public IEnumerable<Product> SelectAll()
-        {
-            var sqlSelectAll =
-                @"SELECT [ProductID], [ProductName], [SupplierID], [CategoryID], [QuantityPerUnit], [UnitPrice], [UnitsInStock], [UnitsOnOrder], [ReorderLevel], [Discontinued] FROM [Northwind].[dbo].[Products]";
-
-            return SelectAll(sqlSelectAll, GetEntities);
-        }
-
-        public IEnumerable<Product> Find(Func<Product, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        private IEnumerable<Product> GetEntities(SqlDataReader reader)
+       
+        protected override IEnumerable<Product> MapEntities(SqlDataReader reader)
         {
             var listResults = new List<Product>();
 

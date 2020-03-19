@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using DALContracts.Models;
+﻿using DALContracts.Models;
 
 namespace DALContracts.Repositories
 {
-    public interface IOrderRepository
+    public interface IOrderRepository: IRepository<Order>
     {
-        Order SelectById(int id);
-        IEnumerable<Order> SelectAll();
-        IEnumerable<Order> Find(Func<Order, bool> predicate);
+        
     }
 }
