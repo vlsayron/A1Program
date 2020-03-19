@@ -78,111 +78,39 @@ namespace NorthwindDAL
             return default;
         }
 
-
         public IEnumerable<T> Find(Func<T, bool> predicate)
         {
             return SelectAll().Where(predicate);
         }
 
+        protected object ExecuteCommand(string sqlQuery, params SqlParameter[] sqlParameters)
+        {
+            object commandResult;
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = new SqlCommand(sqlQuery, connection)
+                {
+                    CommandType = System.Data.CommandType.Text
+                };
+
+                foreach (var sqlParameter in sqlParameters)
+                {
+                    command.Parameters.Add(sqlParameter);
+                }
+
+                commandResult = command.ExecuteScalar();
+
+                connection.Close();
+            }
+
+            return commandResult;
+        }
+
 
         protected abstract IEnumerable<T> MapEntities(SqlDataReader reader);
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //private readonly string _connectionString;
-
-        //protected BaseRepository(string connectionString)
-        //{
-        //    _connectionString = connectionString;
-        //}
-
-        //protected object ExecuteCommand(string storedProcedureName, params SqlParameter[] sqlParameters)
-        //{
-        //    object commandResult;
-
-        //    using (var connection = new SqlConnection(_connectionString))
-        //    {
-        //        connection.Open();
-
-        //        var command = new SqlCommand(storedProcedureName, connection)
-        //        {
-        //            CommandType = System.Data.CommandType.StoredProcedure
-        //        };
-
-        //        foreach (var sqlParameter in sqlParameters)
-        //        {
-        //            command.Parameters.Add(sqlParameter);
-        //        }
-
-        //        commandResult = command.ExecuteScalar();
-
-        //        connection.Close();
-        //    }
-
-        //    return commandResult;
-        //}
-
-        //protected T SelectById<T2>(string sqlQuery, T2 id)
-        //{
-        //    using (var connection = new SqlConnection(_connectionString))
-        //    {
-        //        connection.Open();
-
-        //        var command = new SqlCommand(sqlQuery, connection)
-        //        {
-        //            CommandType = System.Data.CommandType.Text
-        //        };
-
-        //        var idParam = new SqlParameter
-        //        {
-        //            ParameterName = "@IdEntity",
-        //            Value = id
-        //        };
-
-        //        command.Parameters.Add(idParam);
-
-        //        using (var reader = command.ExecuteReader())
-        //        {
-        //            if (reader.HasRows)
-        //            {
-        //                return MapEntities(reader).FirstOrDefault();
-        //            }
-        //        }
-
-        //        connection.Close();
-        //    }
-
-        //    return default;
-
-        //}
-        //protected IEnumerable<T> SelectAll(string sqlQuery)
-        //{
-
-        //    using (var connection = new SqlConnection(_connectionString))
-        //    {
-        //        connection.Open();
-
-        //        var command = new SqlCommand(sqlQuery, connection)
-        //        {
-        //            CommandType = System.Data.CommandType.Text
-        //        };
-
-        //        using (var reader = command.ExecuteReader())
-        //        {
-        //            if (reader.HasRows)
-        //            {
-        //                return MapEntities(reader);
-        //            }
-        //        }
-
-        //        connection.Close();
-        //    }
-
-        //    return null;
-
-        //}
-
-
 
 
     }

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindDAL", "NorthwindDA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTests", "NorthwindTests\NorthwindTests.csproj", "{566D7416-1E42-4D0F-AB3F-E1FADC37269B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForTest", "ForTest\ForTest.csproj", "{C66C45F7-8D26-4A78-AC0F-EE8EB9B7B45E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{AAA30FD8-A4A1-4D0B-87DD-5505DA7DB812}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{566D7416-1E42-4D0F-AB3F-E1FADC37269B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{566D7416-1E42-4D0F-AB3F-E1FADC37269B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{566D7416-1E42-4D0F-AB3F-E1FADC37269B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C66C45F7-8D26-4A78-AC0F-EE8EB9B7B45E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C66C45F7-8D26-4A78-AC0F-EE8EB9B7B45E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C66C45F7-8D26-4A78-AC0F-EE8EB9B7B45E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C66C45F7-8D26-4A78-AC0F-EE8EB9B7B45E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA30FD8-A4A1-4D0B-87DD-5505DA7DB812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA30FD8-A4A1-4D0B-87DD-5505DA7DB812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA30FD8-A4A1-4D0B-87DD-5505DA7DB812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA30FD8-A4A1-4D0B-87DD-5505DA7DB812}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
