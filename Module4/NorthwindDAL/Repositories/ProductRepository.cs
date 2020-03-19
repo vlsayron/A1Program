@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using DALContracts.Models;
-using DALContracts.Repositories;
 
 namespace NorthwindDAL.Repositories
 {
-    internal class ProductRepository : BaseRepository<Product>, IRepository<Product>
+    internal class ProductRepository : BaseRepository<Product>
     {
         private readonly CategoryRepository _categoryRepository;
         private readonly SupplierRepository _supplierRepository;

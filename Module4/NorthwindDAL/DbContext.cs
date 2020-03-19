@@ -10,7 +10,6 @@ namespace NorthwindDAL
         private readonly CategoryRepository _categoryRepository;
         private readonly SupplierRepository _supplierRepository;
         private readonly ProductRepository _productRepository;
-
         private readonly CustomerRepository _customerRepository;
         private readonly EmployeeRepository _employeeRepository;
         private readonly OrderRepository _orderRepository;
@@ -19,7 +18,6 @@ namespace NorthwindDAL
         public IRepository<Category> Categories => _categoryRepository;
         public IRepository<Supplier> Suppliers => _supplierRepository;
         public IRepository<Product> Products => _productRepository;
-
         public IRepository<Customer> Customers => _customerRepository;
         public IRepository<Employee> Employees => _employeeRepository;
         public IOrderRepository Orders => _orderRepository;
@@ -31,14 +29,10 @@ namespace NorthwindDAL
             _categoryRepository = new CategoryRepository(stringConnection);
             _supplierRepository = new SupplierRepository(stringConnection);
             _productRepository = new ProductRepository(stringConnection, _categoryRepository, _supplierRepository);
-
             _customerRepository = new CustomerRepository(stringConnection);
             _employeeRepository = new EmployeeRepository(stringConnection);
-
-            var orderDetails = new OrderDetailRepository(stringConnection, _productRepository);
-
-            _orderRepository =
-                new OrderRepository(stringConnection, _employeeRepository, _customerRepository, orderDetails);
+            _orderRepository = new OrderRepository(stringConnection, _employeeRepository, _customerRepository,
+                new OrderDetailRepository(stringConnection, _productRepository));
 
         }
 

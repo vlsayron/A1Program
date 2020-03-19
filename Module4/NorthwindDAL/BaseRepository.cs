@@ -109,7 +109,6 @@ namespace NorthwindDAL
             return commandResult;
         }
 
-
         protected abstract IEnumerable<T> MapEntities(SqlDataReader reader);
 
 

@@ -7,9 +7,9 @@ namespace NorthwindDAL.Repositories
     internal class CategoryRepository : BaseRepository<Category>
     {
         private const string SqlSelectById =
-            @"SELECT [CategoryID],[CategoryName],[Description],[Picture] FROM [dbo].[Categories] WHERE [CategoryID] = @IdEntity";
+            @"SELECT [CategoryID],[CategoryName],[Description] FROM [dbo].[Categories] WHERE [CategoryID] = @IdEntity";
         private const string SqlSelectAll =
-            @"SELECT [CategoryID],[CategoryName],[Description],[Picture] FROM [dbo].[Categories]";
+            @"SELECT [CategoryID],[CategoryName],[Description] FROM [dbo].[Categories]";
 
         public CategoryRepository(string connectionString) : base(connectionString, SqlSelectAll, SqlSelectById)
         {

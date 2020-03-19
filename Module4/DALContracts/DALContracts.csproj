@@ -51,6 +51,8 @@
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\OrderStatusEnum.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Reports\CustOrderHist.cs" />
+    <Compile Include="Models\Reports\CustOrdersDetail.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IOrderRepository.cs" />
