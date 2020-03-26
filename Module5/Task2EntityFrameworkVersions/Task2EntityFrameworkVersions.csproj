@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{34729C81-06E8-4B87-A869-A927AB2BF178}</ProjectGuid>
+    <ProjectGuid>{4B361F60-F30C-485F-9DBD-4E7CB252D6D0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Task1EntityFramework</RootNamespace>
-    <AssemblyName>Task1EntityFramework</AssemblyName>
+    <RootNamespace>Task2EntityFrameworkVersions</RootNamespace>
+    <AssemblyName>Task2EntityFrameworkVersions</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -51,19 +51,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Models\DbInitializer.cs" />
     <Compile Include="Models\Enities\Category.cs" />
     <Compile Include="Models\Enities\Customer.cs" />
     <Compile Include="Models\Enities\CustomerDemographic.cs" />
     <Compile Include="Models\Enities\Employee.cs" />
-    <Compile Include="Models\NorthwindDB.cs" />
     <Compile Include="Models\Enities\Order.cs" />
     <Compile Include="Models\Enities\Order_Detail.cs" />
     <Compile Include="Models\Enities\Product.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Enities\Region.cs" />
     <Compile Include="Models\Enities\Shipper.cs" />
     <Compile Include="Models\Enities\Supplier.cs" />
     <Compile Include="Models\Enities\Territory.cs" />
+    <Compile Include="Models\NorthwindDB.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

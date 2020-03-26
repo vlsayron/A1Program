@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Task2EntityFramework.Models.Enities
+namespace Task2EntityFrameworkVersions.Models.Enities
 {
     [Table("Order Details")]
     public class Order_Detail

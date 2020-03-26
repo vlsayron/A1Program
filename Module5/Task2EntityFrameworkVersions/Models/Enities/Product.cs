@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Task2EntityFramework.Models.Enities
+namespace Task2EntityFrameworkVersions.Models.Enities
 {
     public class Product
     {

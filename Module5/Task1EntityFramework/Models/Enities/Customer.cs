@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Task1EntityFramework.Models.Enities
+namespace Task2EntityFramework.Models.Enities
 {
     public class Customer
     {

@@ -1,8 +1,7 @@
 using System.Data.Entity;
-using Task1EntityFramework.Models;
-using Task2EntityFramework.Models.Enities;
+using Task2EntityFrameworkVersions.Models.Enities;
 
-namespace Task2EntityFramework.Models
+namespace Task2EntityFrameworkVersions.Models
 {
     public class NorthwindDB : DbContext
     {

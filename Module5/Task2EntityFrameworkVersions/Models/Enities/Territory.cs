@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Task2EntityFramework.Models.Enities
+namespace Task2EntityFrameworkVersions.Models.Enities
 {
     public class Territory
     {

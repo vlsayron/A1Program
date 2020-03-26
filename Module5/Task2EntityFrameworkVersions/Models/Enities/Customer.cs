@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Task2EntityFramework.Models.Enities
+namespace Task2EntityFrameworkVersions.Models.Enities
 {
-    public class Supplier
+    public class Customer
     {
-        public Supplier()
+        public Customer()
         {
-            Products = new HashSet<Product>();
+            Orders = new HashSet<Order>();
+            CustomerDemographics = new HashSet<CustomerDemographic>();
         }
 
-        public int SupplierID { get; set; }
+        [StringLength(5)]
+        public string CustomerID { get; set; }
 
         [Required]
         [StringLength(40)]
@@ -44,9 +45,8 @@ namespace Task2EntityFramework.Models.Enities
         [StringLength(24)]
         public string Fax { get; set; }
 
-        [Column(TypeName = "ntext")]
-        public string HomePage { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<CustomerDemographic> CustomerDemographics { get; set; }
     }
 }
