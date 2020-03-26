@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4B361F60-F30C-485F-9DBD-4E7CB252D6D0}</ProjectGuid>
+    <ProjectGuid>{EDDEE903-61BD-4233-9B91-0AC8F6955A39}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Task2EntityFrameworkVersions</RootNamespace>
@@ -52,20 +52,37 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Models\DbInitializer.cs" />
-    <Compile Include="Models\Enities\Category.cs" />
-    <Compile Include="Models\Enities\Customer.cs" />
-    <Compile Include="Models\Enities\CustomerDemographic.cs" />
-    <Compile Include="Models\Enities\Employee.cs" />
-    <Compile Include="Models\Enities\Order.cs" />
-    <Compile Include="Models\Enities\Order_Detail.cs" />
-    <Compile Include="Models\Enities\Product.cs" />
-    <Compile Include="Models\Enities\Region.cs" />
-    <Compile Include="Models\Enities\Shipper.cs" />
-    <Compile Include="Models\Enities\Supplier.cs" />
-    <Compile Include="Models\Enities\Territory.cs" />
-    <Compile Include="Models\NorthwindDB.cs" />
+    <Compile Include="Migrations\202003261832034_Version_1.0.cs" />
+    <Compile Include="Migrations\202003261832034_Version_1.0.designer.cs">
+      <DependentUpon>202003261832034_Version_1.0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003261859076_Version_1.1.cs" />
+    <Compile Include="Migrations\202003261859076_Version_1.1.Designer.cs">
+      <DependentUpon>202003261859076_Version_1.1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003261901369_Version_1.3.cs" />
+    <Compile Include="Migrations\202003261901369_Version_1.3.Designer.cs">
+      <DependentUpon>202003261901369_Version_1.3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Task1EntityFramework\Task2EntityFramework.csproj">
+      <Project>{34729c81-06e8-4b87-a869-a927ab2bf178}</Project>
+      <Name>Task2EntityFramework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202003261832034_Version_1.0.resx">
+      <DependentUpon>202003261832034_Version_1.0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003261859076_Version_1.1.resx">
+      <DependentUpon>202003261859076_Version_1.1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003261901369_Version_1.3.resx">
+      <DependentUpon>202003261901369_Version_1.3.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
