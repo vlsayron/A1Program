@@ -35,12 +35,12 @@ namespace FileHandler
 
             if (dateFrom != DateTime.MinValue)
             {
-                orders = orders.Where(x => x.RequiredDate >= dateFrom).ToList();
+                orders = orders.Where(x => x.OrderDate >= dateFrom).ToList();
             }
 
             if (dateTo != DateTime.MinValue)
             {
-                orders = orders.Where(x => x.RequiredDate <= dateTo).ToList();
+                orders = orders.Where(x => x.OrderDate <= dateTo).ToList();
             }
 
             if (skip != 0)
