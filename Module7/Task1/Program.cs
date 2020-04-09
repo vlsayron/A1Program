@@ -8,13 +8,13 @@ namespace Task1
         static void Main()
         {
             const string address = "https://dev.by/";
-            const bool verbose = true;
+            const bool verboseMode = true;
             const string folderPath = @"C:\_WebGrabberResult\";
             const int depth = 2;
             const GrabberModeEnum domainMode = GrabberModeEnum.AllDomains;
 
-            
-            var grabber = new Grabber(address, folderPath, verbose, depth, domainMode, null);
+
+            var grabber = new Grabber(address, folderPath, depth, verboseMode,  domainMode, null);
 
             grabber.GrabberEvent += Console.WriteLine;
 
@@ -22,8 +22,6 @@ namespace Task1
 
             Console.WriteLine("Finish! Press any key");
             Console.ReadKey();
-
-
         }
 
 

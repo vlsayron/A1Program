@@ -10,22 +10,23 @@ namespace WebGrabber
     public class Grabber
     {
         private readonly string _resourceAddress;
-        private readonly bool _verbose;
         private readonly string _localPath;
         private readonly int _depth;
+        private readonly bool _verbose;
         private readonly GrabberModeEnum _domainMode;
         private readonly IEnumerable<string> _allowedFiles;
+
         private const string RouteFileName = "index.html";
         private readonly string[] _allowedSchemes = { "http", "https" };
 
         public event GrabberHandler GrabberEvent;
 
-        public Grabber(string resourceAddress, string localPath, bool verbose, int depth, GrabberModeEnum domainMode, IEnumerable<string> allowedFiles)
+        public Grabber(string resourceAddress, string localPath, int depth, bool verbose,  GrabberModeEnum domainMode, IEnumerable<string> allowedFiles)
         {
             _resourceAddress = resourceAddress;
             _localPath = localPath;
-            _verbose = verbose;
             _depth = depth;
+            _verbose = verbose;
             _domainMode = domainMode;
             _allowedFiles = allowedFiles;
         }
@@ -68,8 +69,9 @@ namespace WebGrabber
             }
 
             OnGrabberEvent($"'{resourceAddress}' is received");
-            
-            if (!IsAllowedExtension(response.Content.Headers.ContentType.MediaType))
+
+            if (_allowedFiles == null ||
+                _allowedFiles.Contains(Path.GetExtension(response.Content.Headers.ContentType.MediaType)))
             {
                 return;
             }
@@ -154,11 +156,6 @@ namespace WebGrabber
             }
 
             OnGrabberEvent($"File '{fileName}' has been saved");
-        }
-
-        private bool IsAllowedExtension(string extension)
-        {
-            return _allowedFiles == null || _allowedFiles.Contains(Path.GetExtension(extension));
         }
 
         private void OnGrabberEvent(string message)
