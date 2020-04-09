@@ -19,13 +19,13 @@ namespace FileHandler
 
         public void ProcessRequest(HttpContext context)
         {
+            
             var customerId = context.Request.Params.Get("customer");
             var dateTo = Convert.ToDateTime(context.Request.Params.Get("dateTo"));
             var dateFrom = Convert.ToDateTime(context.Request.Params.Get("dateFrom"));
             var skip = Convert.ToInt32(context.Request.Params.Get("skip"));
             var take = Convert.ToInt32(context.Request.Params.Get("take"));
-
-
+            
             var orders = _dbModel.Orders.OrderBy(o => o.CustomerID).ToList();
 
             if (!string.IsNullOrWhiteSpace(customerId))

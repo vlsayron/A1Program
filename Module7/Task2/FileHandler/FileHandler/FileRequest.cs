@@ -15,6 +15,10 @@ namespace FileHandler
             var excelTypes = new[] {"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"};
             var xmlTypes = new[] {"text/xml", "application/xml"};
 
+            if (string.IsNullOrEmpty(type))
+            {
+                return FileRequestTypeEnum.ExcelDocument;
+            }
 
             if (Enumerable.Any(excelTypes, type.Contains))
             {
