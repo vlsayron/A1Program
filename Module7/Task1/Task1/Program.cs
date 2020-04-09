@@ -12,9 +12,9 @@ namespace Task1
             const string folderPath = @"C:\_WebGrabberResult\";
             const int depth = 2;
             const GrabberModeEnum domainMode = GrabberModeEnum.AllDomains;
+            var allowedFiles = new[] {"html", "jpg", "gif"};
 
-
-            var grabber = new Grabber(address, folderPath, depth, verboseMode,  domainMode, null);
+            var grabber = new Grabber(address, folderPath, depth, verboseMode,  domainMode, allowedFiles);
 
             grabber.GrabberEvent += Console.WriteLine;
 
